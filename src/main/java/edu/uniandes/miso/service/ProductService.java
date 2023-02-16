@@ -4,7 +4,6 @@ import edu.uniandes.miso.dto.InputProductDto;
 import edu.uniandes.miso.dto.ResponseService;
 import edu.uniandes.miso.entity.Product;
 import edu.uniandes.miso.repository.ProductRepository;
-import edu.uniandes.miso.util.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.logging.Logger;
 
