@@ -12,6 +12,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -35,6 +36,7 @@ public class ProductService {
 			Product product = new Product();
 			product.setName(input.getName());
 			product.setDescription(input.getDescription());
+			product.setIdUserCreator(input.getIdUserCreator());
 			product.setIdSport(input.getIdSport());
 			responseService.setSuccess(true);
 			responseService.setMessage("Created");
@@ -74,6 +76,25 @@ public class ProductService {
 		responseService.setSuccess(false);
 		responseService.setMessage("Not found");
 		return Response.status(Response.Status.NO_CONTENT).entity(responseService).build();
+	}
+
+	@PUT
+	@Path("{id}")
+	public Response put(@PathParam("id") Long idService, InputProductDto input) {
+		Optional<Product> product = repository.findById(idService);
+        if(product.isPresent()) {
+            product.get().setName(input.getName());
+            product.get().setDescription(input.getDescription());
+            product.get().setIdSport(input.getIdSport());
+			product.get().setIdUserCreator(input.getIdUserCreator());
+            responseService.setSuccess(true);
+            responseService.setMessage("Updated");
+            responseService.setResult(repository.save(product.get()));
+            return Response.status(Response.Status.OK).entity(responseService).build();
+        }
+        responseService.setSuccess(false);
+        responseService.setMessage("Fail to update");
+        return Response.status(Response.Status.BAD_REQUEST).entity(responseService).build();
 	}
 
 	@GET

@@ -34,6 +34,7 @@ class ProductServiceTest {
         product = new Product();
         product.setIdSport(1L);
         product.setIdProduct(1L);
+        product.setIdUserCreator(3L);
         product.setDescription("des");
         product.setName("name");
     }
@@ -65,6 +66,7 @@ class ProductServiceTest {
         input.setDescription("des");
         input.setName("name");
         input.setIdSport(1L);
+        input.setIdUserCreator(3L);
         Response response = backendService.create(input);
         assertNotNull(input.toString());
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
@@ -120,5 +122,29 @@ class ProductServiceTest {
         Mockito.when(repository.findById(1L)).thenReturn(Optional.of(product));
         Response response = backendService.delete(1L);
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
+
+    @Test
+    void putOk() {
+        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(product));
+        Mockito.when(repository.save(product)).thenReturn(product);
+        InputProductDto inputServiceDto = new InputProductDto();
+        inputServiceDto.setName("name");
+        inputServiceDto.setDescription("category");
+        inputServiceDto.setIdSport(1L);
+        inputServiceDto.setIdUserCreator(5L);
+        Response response = backendService.put(1L,inputServiceDto);
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    }
+    @Test
+    void putFail() {
+        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(product));
+        Mockito.when(repository.save(product)).thenReturn(product);
+        InputProductDto inputServiceDto = new InputProductDto();
+        inputServiceDto.setName("");
+        inputServiceDto.setDescription("category");
+        inputServiceDto.setIdUserCreator(1L);
+        Response response = backendService.put(5L,inputServiceDto);
+        assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
     }
 }
