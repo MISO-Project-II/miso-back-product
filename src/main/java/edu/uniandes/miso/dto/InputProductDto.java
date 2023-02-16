@@ -11,6 +11,7 @@ import lombok.ToString;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class InputProductDto {
     private Long idSport;
+    private Long idUserCreator;
     private String name;
     private String description;
 }
