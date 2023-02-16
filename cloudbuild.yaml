@@ -7,7 +7,7 @@ steps:
       - |
         mvn clean verify sonar:sonar \
           -Dmaven.test.skip=false \
-          -Dsonar.projectKey=mmiso-back-product \
+          -Dsonar.projectKey=miso-back-product \
           -Dsonar.host.url=http://34.67.142.84:9001 \
           -Dsonar.login=sqp_11eadd83dd000788ce23be80eb1d0ec65e41da41 \
           -Dsonar.qualitygate.wait=true
