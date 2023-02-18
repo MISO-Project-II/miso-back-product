@@ -25,7 +25,7 @@ public class BackendService {
     ProductRepository repository;
 
     @POST
-    @Path(("listById"))
+    @Path(("listByIdproduct"))
     public Response getListById(List<Long> list) {
         return Response.ok(repository.findAllById(list)).build();
     }
