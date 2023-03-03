@@ -14,6 +14,10 @@ public class ResponseService {
     private String message;
     private Boolean success;
     private Object result;
-    private Long idSport;
 
+    public ResponseService(String message, Boolean success, Object result) {
+        this.message = message;
+        this.success = success;
+        this.result = result;
+    }
 }

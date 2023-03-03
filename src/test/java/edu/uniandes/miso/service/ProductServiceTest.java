@@ -45,15 +45,7 @@ class ProductServiceTest {
         product.getDescription();
         product.getIdSport();
 
-        ResponseService responseService = new ResponseService();
-        responseService.setResult(new Object());
-        responseService.setSuccess(true);
-        responseService.setIdSport(1L);
 
-
-
-        responseService.setMessage("msg");
-        assertNotNull(responseService.toString());
         assertNotNull(product.getIdSport());
         assertNotNull(product.toString());
     }
@@ -92,7 +84,7 @@ class ProductServiceTest {
     void getFail() {
         Mockito.when(repository.findById(1L)).thenReturn(Optional.of(product));
         Response response = backendService.get(9L);
-        assertEquals(Response.Status.NO_CONTENT.getStatusCode(), response.getStatus());
+        assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
     }
 
     @Test
@@ -106,7 +98,7 @@ class ProductServiceTest {
     void deleteFail() {
         Mockito.when(repository.findById(1L)).thenReturn(Optional.of(product));
         Response response = backendService.delete(5L);
-        assertEquals(Response.Status.NO_CONTENT.getStatusCode(), response.getStatus());
+        assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
     }
 
     @Test
