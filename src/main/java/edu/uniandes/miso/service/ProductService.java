@@ -1,6 +1,7 @@
 package edu.uniandes.miso.service;
 
 import edu.uniandes.miso.dto.InputProductDto;
+import edu.uniandes.miso.dto.Reply;
 import edu.uniandes.miso.dto.ResponseService;
 import edu.uniandes.miso.entity.Product;
 import edu.uniandes.miso.repository.ProductRepository;
@@ -28,7 +29,6 @@ public class ProductService {
 	Logger log;
 	@Inject
 	ProductRepository repository;
-	ResponseService responseService = new ResponseService();
 
 	@POST
 	public Response create(InputProductDto input) {
@@ -38,14 +38,9 @@ public class ProductService {
 			product.setDescription(input.getDescription());
 			product.setIdUserCreator(input.getIdUserCreator());
 			product.setIdSport(input.getIdSport());
-			responseService.setSuccess(true);
-			responseService.setMessage("Created");
-			responseService.setResult(repository.save(product));
-			return Response.status(Response.Status.OK).entity(responseService).build();
+			return Reply.ok(repository.save(product));
 		}
-		responseService.setSuccess(false);
-		responseService.setMessage("Fail to created");
-		return Response.status(Response.Status.BAD_REQUEST).entity(responseService).build();
+		return Reply.notFound(null);
 	}
 
 	@GET
@@ -53,14 +48,9 @@ public class ProductService {
 	public Response get(@PathParam("id") Long idProduct) {
 		Optional<Product> product = repository.findById(idProduct);
 		if(product.isPresent()) {
-			responseService.setSuccess(true);
-			responseService.setMessage("Success");
-			responseService.setResult(product.get());
-			return Response.status(Response.Status.OK).entity(responseService).build();
+			return Reply.ok(product.get());
 		}
-		responseService.setSuccess(false);
-		responseService.setMessage("Not found");
-		return Response.status(Response.Status.NO_CONTENT).entity(responseService).build();
+		return Reply.notFound(null);
 	}
 
 	@DELETE
@@ -69,13 +59,9 @@ public class ProductService {
 		Optional<Product> product = repository.findById(idProduct);
 		if(product.isPresent()) {
 			repository.deleteById(product.get().getIdProduct());
-            responseService.setSuccess(true);
-            responseService.setMessage("Success");
-            return Response.status(Response.Status.OK).entity(responseService).build();
+            return Reply.ok(null);
 		}
-		responseService.setSuccess(false);
-		responseService.setMessage("Not found");
-		return Response.status(Response.Status.NO_CONTENT).entity(responseService).build();
+		return Reply.notFound(null);
 	}
 
 	@PUT
@@ -87,21 +73,13 @@ public class ProductService {
             product.get().setDescription(input.getDescription());
             product.get().setIdSport(input.getIdSport());
 			product.get().setIdUserCreator(input.getIdUserCreator());
-            responseService.setSuccess(true);
-            responseService.setMessage("Updated");
-            responseService.setResult(repository.save(product.get()));
-            return Response.status(Response.Status.OK).entity(responseService).build();
+            return Reply.ok(repository.save(product.get()));
         }
-        responseService.setSuccess(false);
-        responseService.setMessage("Fail to update");
-        return Response.status(Response.Status.BAD_REQUEST).entity(responseService).build();
+		return Reply.notFound(null);
 	}
 
 	@GET
 	public Response getAll() {
-		responseService.setSuccess(true);
-		responseService.setMessage("success");
-		responseService.setResult(repository.findAll());
-		return Response.status(Response.Status.OK).entity(responseService).build();
+		return Reply.ok(repository.findAll());
 	}
 }
