@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -24,5 +25,6 @@ public class Product implements Serializable {
     private String description;
     private String contractType;
     private String eventType;
+    private BigDecimal price;
 
 }

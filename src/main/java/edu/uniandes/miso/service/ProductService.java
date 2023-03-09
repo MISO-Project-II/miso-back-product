@@ -40,6 +40,7 @@ public class ProductService {
 			product.setIdSport(input.getIdSport());
 			product.setContractType(input.getContractType());
 			product.setEventType(input.getEventType());
+			product.setPrice(input.getPrice());
 			return Reply.ok(repository.save(product));
 		}
 		return Reply.notFound(null);
@@ -77,6 +78,7 @@ public class ProductService {
 			product.get().setIdUserCreator(input.getIdUserCreator());
 			product.get().setContractType(input.getContractType());
 			product.get().setEventType(input.getEventType());
+			product.get().setPrice(input.getPrice());
             return Reply.ok(repository.save(product.get()));
         }
 		return Reply.notFound(null);
