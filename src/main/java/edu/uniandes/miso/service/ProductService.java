@@ -38,6 +38,8 @@ public class ProductService {
 			product.setDescription(input.getDescription());
 			product.setIdUserCreator(input.getIdUserCreator());
 			product.setIdSport(input.getIdSport());
+			product.setContractType(input.getContractType());
+			product.setEventType(input.getEventType());
 			return Reply.ok(repository.save(product));
 		}
 		return Reply.notFound(null);
@@ -73,6 +75,8 @@ public class ProductService {
             product.get().setDescription(input.getDescription());
             product.get().setIdSport(input.getIdSport());
 			product.get().setIdUserCreator(input.getIdUserCreator());
+			product.get().setContractType(input.getContractType());
+			product.get().setEventType(input.getEventType());
             return Reply.ok(repository.save(product.get()));
         }
 		return Reply.notFound(null);

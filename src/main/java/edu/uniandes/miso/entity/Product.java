@@ -22,5 +22,7 @@ public class Product implements Serializable {
     private Long idSport;
     private String name;
     private String description;
+    private String contractType;
+    private String eventType;
 
 }
