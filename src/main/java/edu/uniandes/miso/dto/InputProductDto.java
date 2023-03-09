@@ -14,4 +14,6 @@ public class InputProductDto {
     private Long idUserCreator;
     private String name;
     private String description;
+    private String contractType;
+    private String eventType;
 }
